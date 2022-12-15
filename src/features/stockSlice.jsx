@@ -23,6 +23,8 @@ const stockSlice = createSlice({
         getSuccess: (state, { payload:{data,url} }) => {
             state.loading = false;
             state[url] = data;
+            state.publishers=data;
+            state.books=data;
             
         },
         fetchFail: (state) => {

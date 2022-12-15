@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import React from 'react'
 import { useSelector } from "react-redux";
 
 const BASE_URL = "https://14375.fullstack.clarusway.com/";
