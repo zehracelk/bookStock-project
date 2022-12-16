@@ -28,6 +28,7 @@ const useStockCalls = () => {
     const getPublishers = () => getStockData("firms")
     const getSales = () => getStockData("sales");
     const getBooks = () => getStockData("products");
+    const getAuthor = () => getStockData("brands")
 
     // Delete Calls 
 
@@ -44,6 +45,10 @@ const useStockCalls = () => {
     };
 
     const deletePublishers = (id) => deleteStockData("firms", id);
+    const deleteBooks = (id) => deleteStockData("products", id);
+    const deleteAuthor = (id) => deleteStockData("brands", id);
+
+
 
     // Post Calls
 
@@ -60,6 +65,8 @@ const useStockCalls = () => {
     };
 
     const postPublishers = (info) => postStockData(info, "firms");
+    const postAuthor = (info) => postStockData(info, "brands");
+    const postBooks = (info) => postStockData(info, "products");
 
     //Put Calls
   
@@ -76,9 +83,12 @@ const useStockCalls = () => {
     };
 
     const putPublishers = (info) => putStockData(info, "firms");
+    const putAuthor = (info) => putStockData(info, "brands");
+    const putBooks = (info) => putStockData(info, "products");
 
 
-    return { getPublishers, getSales, deletePublishers, postPublishers, postStockData, putPublishers }
+
+    return { getPublishers, getSales, deletePublishers, postPublishers, postStockData, putPublishers,getBooks,deleteBooks,getAuthor,deleteAuthor,putAuthor,postAuthor }
 }
 
 export default useStockCalls

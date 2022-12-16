@@ -9,9 +9,9 @@ import { btnHoverStyle, flex } from '../styles/globalStyle';
 import EditIcon from "@mui/icons-material/Edit";
 import useStockCalls from '../hooks/useStockCalls';
 
-export default function BookCard({ pub, setInfo, info, setOpen }) {
+export default function AuthorCard({ auth, setInfo, info, setOpen }) {
 
-    const { deleteBooks } = useStockCalls()
+    const { deleteAuthor } = useStockCalls()
 
     return (
         <Card elevation={10}
@@ -22,27 +22,22 @@ export default function BookCard({ pub, setInfo, info, setOpen }) {
                 display: "flex",
                 flexDirection: "column",
             }}>
-                <CardHeader title={pub?.name} subheader={pub?.address} />
+                <CardHeader title={auth?.name} subheader={auth?.address} />
                 <CardMedia
                     component="img"
-                    sx={{ p: 1, objectFit: "contain",height:"130px" }}
-                    image={pub?.image}
+                    sx={{ p: 1, objectFit: "contain",height:"250px" }}
+                    image={auth?.image}
                     alt="publisher-img"
                 />
-                <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        Phone: {pub?.phone}
-                    </Typography>
-
-                </CardContent>
+               
             <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                 <EditIcon
                     sx={btnHoverStyle}
-                    onClick={() => { setOpen(true);setInfo(pub) }}
+                    onClick={() => { setOpen(true);setInfo(auth) }}
                 />
                 <DeleteOutlineIcon
                     sx={btnHoverStyle}
-                    onClick={() => deleteBooks(pub?.id)}
+                    onClick={() => deleteAuthor(auth?.id)}
                 />            </CardActions>
         </Card>
     );

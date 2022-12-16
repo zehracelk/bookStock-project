@@ -25,6 +25,7 @@ const stockSlice = createSlice({
             state[url] = data;
             state.publishers=data;
             state.books=data;
+            state.author= data;
             
         },
         fetchFail: (state) => {
