@@ -43,9 +43,42 @@ const useStockCalls = () => {
         }
     };
 
-    const deletePublishers = (id) => deleteStockData("firms",id);
+    const deletePublishers = (id) => deleteStockData("firms", id);
 
-    return { getPublishers, getSales, deletePublishers }
+    // Post Calls
+
+    const postStockData = async (info, url) => {
+        try {
+            await axiosWithToken.post(`stock/${url}/`, info)
+            toast("successfully added")
+            getStockData(url)
+        } catch (error) {
+            console.log(error);
+            toast("can not be saved");
+
+        }
+    };
+
+    const postPublishers = (info) => postStockData(info, "firms");
+
+    //Put Calls
+  
+    const putStockData = async (info, url) => {
+        try {
+            await axiosWithToken.put(`stock/${url}/${info.id}/`, info)
+            toast("successfully updated")
+            getStockData(url)
+        } catch (error) {
+            console.log(error);
+            toast("can not be updated");
+
+        }
+    };
+
+    const putPublishers = (info) => putStockData(info, "firms");
+
+
+    return { getPublishers, getSales, deletePublishers, postPublishers, postStockData, putPublishers }
 }
 
 export default useStockCalls

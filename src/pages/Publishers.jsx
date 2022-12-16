@@ -25,17 +25,17 @@ const Publishers = () => {
       <Typography variant="h4" mb={4}>Publishers</Typography>
 
       <Button variant="contained"
-        onClick={() => {setOpen(true);setInfo({})}} >
+        onClick={() => { setOpen(true); setInfo({}) }} >
         New Publisher
       </Button>
 
-      <PubModal open={open} setOpen={setOpen} info={info} setInfo={setInfo}/>
+      <PubModal open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
 
       {publishers?.length > 0 && (
         <Grid container justifyContent="center" gap={3} mt={1}>
           {publishers?.map((pub) => (
             <Grid item key={pub.id} >
-              <PubCard pub={pub} setInfo={setInfo} info={info} />
+              <PubCard pub={pub} setInfo={setInfo} info={info} setOpen={setOpen}/>
             </Grid>
 
 

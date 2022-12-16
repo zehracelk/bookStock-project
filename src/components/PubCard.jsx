@@ -3,42 +3,46 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, CardHeader } from '@mui/material';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { btnHoverStyle, flex } from '../styles/globalStyle';
 import EditIcon from "@mui/icons-material/Edit";
 import useStockCalls from '../hooks/useStockCalls';
 
-export default function PubCard({ pub ,setInfo, info }) {
-    
-    const {deletePublishers} = useStockCalls()
-    
+export default function PubCard({ pub, setInfo, info, setOpen }) {
+
+    const { deletePublishers } = useStockCalls()
+
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
+        <Card elevation={10}
+            sx={{
+                p: 2,
+                width: "300px",
+                height: "400px",
+                display: "flex",
+                flexDirection: "column",
+            }}>
+                <CardHeader title={pub?.name} subheader={pub?.address} />
                 <CardMedia
                     component="img"
-                    height="140"
+                    sx={{ p: 1, objectFit: "contain",height:"130px" }}
                     image={pub?.image}
                     alt="publisher-img"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {pub?.name}
-                    </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {pub?.address}
+                        Phone: {pub?.phone}
                     </Typography>
+
                 </CardContent>
-            </CardActionArea>
             <CardActions sx={{ display: "flex", justifyContent: "center" }}>
                 <EditIcon
                     sx={btnHoverStyle}
-                    onClick={()=>{setInfo(pub)}}
+                    onClick={() => { setOpen(true);setInfo(pub) }}
                 />
                 <DeleteOutlineIcon
                     sx={btnHoverStyle}
-                    onClick= {()=>deletePublishers(pub.id)}
+                    onClick={() => deletePublishers(pub?.id)}
                 />            </CardActions>
         </Card>
     );
