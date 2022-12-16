@@ -6,7 +6,7 @@ const stockSlice = createSlice({
     initialState: {
         purchases:null,
         sales:null,
-        products:null,
+        authors:null,
         books:null,
         publishers:null,
         categories:null,
@@ -25,7 +25,7 @@ const stockSlice = createSlice({
             state[url] = data;
             state.publishers=data;
             state.books=data;
-            state.author= data;
+            state.authors= data;
             
         },
         fetchFail: (state) => {

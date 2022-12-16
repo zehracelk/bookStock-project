@@ -11,13 +11,13 @@ import AuthModal from "../components/modals/AuthModal";
 
 const Author = () => {
 
-  const { getAuthor } = useStockCalls();
-  const { author } = useSelector((state) => state.stock);
+  const { getAuthors } = useStockCalls();
+  const { authors } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({})
 
   useEffect(() => {
-    getAuthor();
+    getAuthors();
   }, [])
 
   return (
@@ -31,9 +31,9 @@ const Author = () => {
 
       <AuthModal open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
 
-      {author?.length > 0 && (
+      {authors?.length > 0 && (
         <Grid container justifyContent="center" gap={3} mt={1}>
-          {author?.map((auth) => (
+          {authors?.map((auth) => (
             <Grid item key={auth.id} >
               <AuthorCard auth={auth} setInfo={setInfo} info={info} setOpen={setOpen}/>
             </Grid>
