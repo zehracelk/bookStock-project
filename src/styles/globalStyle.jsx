@@ -24,6 +24,8 @@ export const modalStyle = {
   
   export const flexCenter = {
     display:"flex",
-    flexDirection:"column",
+    flexDirection:{xs:"column", sm:"row"},
+    justifyContent:"center",
+    alignItems:"center",
     gap:2,
   }
