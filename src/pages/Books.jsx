@@ -13,43 +13,47 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { btnHoverStyle, flexCenter, flexRow } from "../styles/globalStyle";
+import { arrowStyle, btnHoverStyle, flexCenter } from "../styles/globalStyle";
 import VerticalAlignBottomIcon from '@mui/icons-material/VerticalAlignBottom';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
 import { type } from "@testing-library/user-event/dist/type";
 import useSortColumn from "../hooks/useSortColumn";
 import { MultiSelectBox, MultiSelectBoxItem } from "@tremor/react";
+import BookModal from "../components/modals/BookModal";
+
 
 
 const Books = () => {
 
-  const { getBooks, getAuthors } = useStockCalls();
-  const { books,authors } = useSelector((state) => state.stock);
+  const { deleteBooks, getBookAuth } = useStockCalls();
+  const { books, authors } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({});
-  const [selectedAuthors, setSelectedAuthors] = useState([])
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedBooks, setSelectedBooks] = useState([]);
 
   const columnObj = {
     brand: 1,
     name: 1,
     stock: 1
   }
-  const [sortedBooks, setSortedBooks] = useState(books);
 
   useEffect(() => {
-    getBooks();
-    getAuthors()
+    getBookAuth()
   }, [])
 
-  useEffect(() => {
-    setSortedBooks(books)
-  }, [books])
+  const isAuthorSelected = (item) =>
+    selectedAuthors?.includes(item.brand) || selectedAuthors.length === 0;
 
-  const isAuthorSelected = (item) => selectedAuthors.includes(item.brand) || selectedAuthors.length === 0;
+  const isBookSelected = (item) =>
+    selectedBooks?.includes(item.name) || selectedBooks.length === 0;
+
+  const filteredBooks = books?.filter((item) =>
+    selectedAuthors.includes(item.brand))
+    .map((item) => item.name)
 
   const { sortedData, handleSort, columns } = useSortColumn(books, columnObj);
 
-  console.log(selectedAuthors)
 
   return (
     <Box>
@@ -60,31 +64,28 @@ const Books = () => {
         New Book
       </Button>
 
-      
+      <BookModal open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
+
+
       <Box sx={flexCenter} mt={4}>
-      <MultiSelectBox
-        handleSelect={(item) => setSelectedAuthors(item)}
-        placeholder="Select Author"
-      >
-        {authors?.map((item) => (
-          <MultiSelectBoxItem  key={item.id} value={item.brand} text={item.brand} />
-        ))}
-      </MultiSelectBox>
+        <MultiSelectBox
+          handleSelect={(item) => setSelectedAuthors(item)}
+          placeholder="Select Author"
+        >
+          {authors?.map((item) => (
+            <MultiSelectBoxItem key={item.id} value={item.brand} text={item.brand} />
+          ))}
+        </MultiSelectBox>
 
-      <MultiSelectBox
-        handleSelect={(item) => setSelectedAuthors(item)}
-        placeholder="Select Book"
-      >
-        {books?.map((item) => (
-          <MultiSelectBoxItem  key={item.id} value={item.brand} text={item.brand} />
-        ))}
-      </MultiSelectBox>
-
-
-
-
+        <MultiSelectBox
+          handleSelect={(item) => setSelectedBooks(item)}
+          placeholder="Select Book"
+        >
+          {filteredBooks?.map((item) => (
+            <MultiSelectBoxItem key={item} value={item} text={item} />
+          ))}
+        </MultiSelectBox>
       </Box>
-
 
       {sortedData?.length > 0 &&
         (
@@ -94,7 +95,7 @@ const Books = () => {
                 <TableRow>
                   <TableCell align="center">*</TableCell>
                   <TableCell align="center">
-                    <Box sx={flexRow}
+                    <Box sx={arrowStyle}
                       onClick={() => handleSort("brand", "text")}>
                       <div>Author</div>
                       {columns.brand === 1 && <UpgradeIcon />}
@@ -102,7 +103,7 @@ const Books = () => {
                     </Box>
                   </TableCell>
                   <TableCell align="center">
-                    <Box sx={flexRow}
+                    <Box sx={arrowStyle}
                       onClick={() => handleSort("name", "text")}>
                       <div>Book</div>
                       {columns.name === 1 && <UpgradeIcon />}
@@ -110,7 +111,7 @@ const Books = () => {
                     </Box>
                   </TableCell>
                   <TableCell align="center">
-                    <Box sx={flexRow} onClick={() => handleSort("stock", "number")}>
+                    <Box sx={arrowStyle} onClick={() => handleSort("stock", "number")}>
                       <div>Stock</div>
                       {columns.stock === 1 && <UpgradeIcon />}
                       {columns.stock === -1 && <VerticalAlignBottomIcon />}
@@ -122,22 +123,27 @@ const Books = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {books?.filter((item=> isAuthorSelected(item))).map((book, index) => (
-                  <TableRow
-                    key={book.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row" align="center">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell align="center">{book.brand}</TableCell>
-                    <TableCell align="center">{book.name}</TableCell>
-                    <TableCell align="center">{book.stock}</TableCell>
-                    <TableCell align="center"><DeleteOutlineIcon sx={btnHoverStyle} /></TableCell>
+                {sortedData
+                  ?.filter((item => isAuthorSelected(item)))
+                  .filter((item) => isBookSelected(item))
+                  .map((book, index) => (
+                    <TableRow
+                      key={book.name}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row" align="center">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell align="center">{book.brand}</TableCell>
+                      <TableCell align="center">{book.name}</TableCell>
+                      <TableCell align="center">{book.stock}</TableCell>
+                      <TableCell align="center" onClick={() => deleteBooks(book.id)}>
+                        <DeleteOutlineIcon sx={btnHoverStyle} />
+                      </TableCell>
 
 
-                  </TableRow>
-                ))}
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>)}

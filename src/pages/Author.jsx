@@ -35,14 +35,11 @@ const Author = () => {
         <Grid container justifyContent="center" gap={3} mt={1}>
           {authors?.map((auth) => (
             <Grid item key={auth.id} >
-              <AuthorCard auth={auth} setInfo={setInfo} info={info} setOpen={setOpen}/>
+              <AuthorCard auth={auth} setInfo={setInfo} info={info} setOpen={setOpen} />
             </Grid>
           ))}
         </Grid>
       )}
-
-
-
     </Box>
 
 

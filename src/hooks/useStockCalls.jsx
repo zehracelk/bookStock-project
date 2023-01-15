@@ -1,7 +1,7 @@
 
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { fetchFail, fetchStart, getSuccess } from '../features/stockSlice';
+import { fetchFail, fetchStart, getSuccess, getBookAuthSuccess } from '../features/stockSlice';
 import useAxios from './useAxios';
 
 const useStockCalls = () => {
@@ -16,7 +16,7 @@ const useStockCalls = () => {
         dispatch(fetchStart())
         try {
             const { data } = await axiosWithToken.get(`stock/${url}/`)
-            console.log(data)
+            console.log(url, data)
             dispatch(getSuccess({ data, url }))
         } catch (error) {
             dispatch(fetchFail())
@@ -30,6 +30,24 @@ const useStockCalls = () => {
     const getBooks = () => getStockData("products");
     const getAuthors = () => getStockData("brands")
 
+    const getBookAuth = async () => {
+        dispatch(fetchStart());
+        try {
+            const [products, brands] = await Promise.all(
+                [axiosWithToken.get("stock/products/"),
+                axiosWithToken.get("stock/brands/")]
+            );
+            console.log(products)
+            console.log(brands)
+
+            dispatch(getBookAuthSuccess([products?.data, brands?.data]));
+
+        } catch (error) {
+            console.log(error);
+            dispatch(fetchFail())
+
+        }
+    }
     // Delete Calls 
 
     const deleteStockData = async (url, id) => {
@@ -92,7 +110,10 @@ const useStockCalls = () => {
         getPublishers,
         getSales,
         deletePublishers,
+        deleteBooks,
         postPublishers,
+        putAuthors,
+        deleteAuthors,
         postStockData,
         putPublishers,
         getBooks,
@@ -100,7 +121,8 @@ const useStockCalls = () => {
         getAuthors,
         deleteAuthors,
         putAuthors,
-        postAuthors
+        postAuthors,
+        getBookAuth
     }
 }
 
