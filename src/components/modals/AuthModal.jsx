@@ -9,14 +9,14 @@ import useStockCalls from "../../hooks/useStockCalls";
 
 const AuthModal = ({ open, setOpen, info, setInfo }) => {
 
-    const { postAuthor, putAuthor } = useStockCalls()
+    const { postAuthors, putAuthors } = useStockCalls()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(info.id){
-            putAuthor(info);
+            putAuthors(info);
         } else {
-            postAuthor(info);
+            postAuthors(info);
 
         }
         setOpen(false);
@@ -40,7 +40,7 @@ const AuthModal = ({ open, setOpen, info, setInfo }) => {
             >
 
                 <Box sx={modalStyle}>
-                    <Box sx={flexCenter} component="form" onSubmit={handleSubmit}>
+                    <Box sx={flexColumn} component="form" onSubmit={handleSubmit}>
 
                         <TextField
                             label="Author Name"

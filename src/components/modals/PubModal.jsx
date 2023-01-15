@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from '@mui/material/Modal';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { flexCenter, flexColumn, modalStyle } from "../../styles/globalStyle";
+import {  flexColumn, modalStyle } from "../../styles/globalStyle";
 import { Button, TextField } from "@mui/material";
 import useStockCalls from "../../hooks/useStockCalls";
 
@@ -40,7 +40,7 @@ const PubModal = ({ open, setOpen, info, setInfo }) => {
             >
 
                 <Box sx={modalStyle}>
-                    <Box sx={flexCenter} component="form" onSubmit={handleSubmit}>
+                    <Box sx={flexColumn} component="form" onSubmit={handleSubmit}>
 
                         <TextField
                             label="Firm Name"
