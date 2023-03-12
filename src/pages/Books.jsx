@@ -16,11 +16,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { arrowStyle, btnHoverStyle, flexCenter } from "../styles/globalStyle";
 import VerticalAlignBottomIcon from '@mui/icons-material/VerticalAlignBottom';
 import UpgradeIcon from '@mui/icons-material/Upgrade';
-import { type } from "@testing-library/user-event/dist/type";
 import useSortColumn from "../hooks/useSortColumn";
 import { MultiSelectBox, MultiSelectBoxItem } from "@tremor/react";
 import BookModal from "../components/modals/BookModal";
-
 
 
 const Books = () => {
@@ -54,6 +52,7 @@ const Books = () => {
 
   const { sortedData, handleSort, columns } = useSortColumn(books, columnObj);
 
+  console.log(books);
 
   return (
     <Box>
@@ -72,7 +71,7 @@ const Books = () => {
           handleSelect={(item) => setSelectedAuthors(item)}
           placeholder="Select Author"
         >
-          {authors?.map((item) => (
+          {books?.map((item) => (
             <MultiSelectBoxItem key={item.id} value={item.brand} text={item.brand} />
           ))}
         </MultiSelectBox>
@@ -111,7 +110,7 @@ const Books = () => {
                     </Box>
                   </TableCell>
                   <TableCell align="center">
-                    <Box sx={arrowStyle} onClick={() => handleSort("stock", "number")}>
+                    <Box sx={arrowStyle} onClick={() => handleSort("category_id", "number")}>
                       <div>Stock</div>
                       {columns.stock === 1 && <UpgradeIcon />}
                       {columns.stock === -1 && <VerticalAlignBottomIcon />}
@@ -136,7 +135,7 @@ const Books = () => {
                       </TableCell>
                       <TableCell align="center">{book.brand}</TableCell>
                       <TableCell align="center">{book.name}</TableCell>
-                      <TableCell align="center">{book.stock}</TableCell>
+                      <TableCell align="center">{book.category_id}</TableCell>
                       <TableCell align="center" onClick={() => deleteBooks(book.id)}>
                         <DeleteOutlineIcon sx={btnHoverStyle} />
                       </TableCell>

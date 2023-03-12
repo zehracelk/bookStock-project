@@ -28,7 +28,8 @@ const useStockCalls = () => {
     const getPublishers = () => getStockData("firms")
     const getSales = () => getStockData("sales");
     const getBooks = () => getStockData("products");
-    const getAuthors = () => getStockData("brands")
+    const getAuthors = () => getStockData("brands");
+    const getPurchases = () => getStockData("purchases")
 
     const getBookAuth = async () => {
         dispatch(fetchStart());
@@ -37,8 +38,8 @@ const useStockCalls = () => {
                 [axiosWithToken.get("stock/products/"),
                 axiosWithToken.get("stock/brands/")]
             );
-            console.log(products)
             console.log(brands)
+            console.log(products)
 
             dispatch(getBookAuthSuccess([products?.data, brands?.data]));
 
@@ -85,6 +86,7 @@ const useStockCalls = () => {
     const postPublishers = (info) => postStockData(info, "firms");
     const postAuthors = (info) => postStockData(info, "brands");
     const postBooks = (info) => postStockData(info, "products");
+    const postPurchases = (info) => postStockData(info, "purchases");
 
     //Put Calls
 
@@ -103,12 +105,14 @@ const useStockCalls = () => {
     const putPublishers = (info) => putStockData(info, "firms");
     const putAuthors = (info) => putStockData(info, "brands");
     const putBooks = (info) => putStockData(info, "products");
+    const putPurchases = (info) => putStockData(info, "purchases")
 
 
 
     return {
         getPublishers,
         getSales,
+        getPurchases,
         deletePublishers,
         deleteBooks,
         postPublishers,
@@ -122,7 +126,9 @@ const useStockCalls = () => {
         deleteAuthors,
         putAuthors,
         postAuthors,
-        getBookAuth
+        getBookAuth,
+        postPurchases,
+        putPurchases
     }
 }
 

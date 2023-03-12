@@ -14,6 +14,7 @@ import useAuthCalls from '../hooks/useAuthCalls';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { Outlet } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -114,13 +115,13 @@ const Dashboard = (props) => {
           {drawer}
         </Drawer>
       </Box>
-      <Box
+      <Container
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
         <Outlet/>
-      </Box>
+      </Container>
     </Box>
   );
 }

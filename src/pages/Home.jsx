@@ -7,13 +7,15 @@ import Charts from '../components/Charts';
 
 const Home = () => {
 
-  const { getPublishers, getSales} = useStockCalls();
+  const { getPurchases, getSales} = useStockCalls();
 
 
-  useEffect(() =>{
-    getPublishers();
+  useEffect(()=>{
     getSales();
-  },[])
+    getPurchases();
+},[])
+
+
 
   return (
     <Box>

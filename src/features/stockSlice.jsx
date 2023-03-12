@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const values = {
     products: 'books',
     firms: 'publishers',
-    brands: 'authors'
+    brands: 'authors',
+    sales:'sales',
+    purchases:'purchases'
 }
 const stockSlice = createSlice({
     name: "stock",
@@ -31,6 +33,7 @@ const stockSlice = createSlice({
             state.loading = false;
             const value = values[url];
             state[value] = data;
+            
 
 
         },

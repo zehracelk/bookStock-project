@@ -19,14 +19,9 @@ const icons = [
     url: "/stock/",
   },
   {
-    title: "Purchase",
+    title: "Purchases",
     icon: <ShoppingCartIcon />,
     url: "/stock/purchases/",
-  },
-  {
-    title: "Sales",
-    icon: <AttachMoneyIcon />,
-    url: "/stock/sales/",
   },
   {
     title: "Publishers",

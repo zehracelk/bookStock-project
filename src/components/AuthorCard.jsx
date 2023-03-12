@@ -11,7 +11,7 @@ import useStockCalls from '../hooks/useStockCalls';
 
 export default function AuthorCard({ auth, setInfo, info, setOpen }) {
 
-    const { deleteAuthor } = useStockCalls()
+    const { deleteAuthors } = useStockCalls()
 
     return (
         <Card elevation={10}
@@ -37,7 +37,7 @@ export default function AuthorCard({ auth, setInfo, info, setOpen }) {
                 />
                 <DeleteOutlineIcon
                     sx={btnHoverStyle}
-                    onClick={() => deleteAuthor(auth?.id)}
+                    onClick={() => deleteAuthors(auth?.id)}
                 />            </CardActions>
         </Card>
     );
