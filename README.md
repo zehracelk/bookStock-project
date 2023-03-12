@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-Used Libraries/APIs
+# Used Libraries/APIs </br>
 ▸ React-Redux (Redux Toolkit)
 ▸ Redux-Persist
 ▸ Material UI
