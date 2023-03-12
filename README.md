@@ -1,11 +1,11 @@
 # Getting Started with Create React App
 
 # Used Libraries/APIs </br>
-▸ React-Redux (Redux Toolkit)
-▸ Redux-Persist
-▸ Material UI
-▸ React Router
-▸ Axios
-▸ Formik, Yup
-▸ Toastify
+▸ React-Redux (Redux Toolkit)</br>
+▸ Redux-Persist</br>
+▸ Material UI</br>
+▸ React Router</br>
+▸ Axios</br>
+▸ Formik, Yup</br>
+▸ Toastify</br>
 ▸ Tremor
